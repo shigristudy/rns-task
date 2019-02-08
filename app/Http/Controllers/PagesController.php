@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
-
+use Storage;
+use File;
 class PagesController extends Controller
 {
     public function profile(){
@@ -19,6 +20,18 @@ class PagesController extends Controller
 
     public function editprofile(Request $request)
     {
-    	dd($request->all());
+    	
+    	if($request->hasfile('image'))
+         {
+            $file = $request->file('image');
+            $filename =time().$file->getClientOriginalName();
+            //$file->move(public_path().'/img/chat', $filename);
+            Storage::disk('local')->put('/public/user/'.$filename, File::get($request->file));
+
+            
+         }else{
+            
+            
+         }
     }
 }
