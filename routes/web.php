@@ -19,3 +19,5 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('profile', 'PagesController@profile')->name('profile');
+Route::get('allusers', 'PagesController@allusers')->name('allusers');
+Route::post('editprofile', 'PagesController@editprofile')->name('editprofile');

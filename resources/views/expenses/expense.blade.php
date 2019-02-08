@@ -172,6 +172,8 @@ Expense
 	            url: "{{ route('add-expense') }}",
 	            data: data,
 	            success: function( data ) {
+                $('#expensesForm')[0].reset();
+                
 	                // console.log(data);
 	            }
 	        });
