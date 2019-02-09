@@ -19,7 +19,7 @@ User Profile
                         <p class="card-description">
                             {{$user->email}}
                         </p>
-                        <a href="#pablo" class="btn btn-primary btn-round">View</a>
+                        <a href="{{route('user',$user->id)}}" class="btn btn-primary btn-round">View</a>
                     </div>
                 </div>
             </div>

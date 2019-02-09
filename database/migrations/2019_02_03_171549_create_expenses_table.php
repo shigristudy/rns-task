@@ -16,10 +16,10 @@ class CreateExpensesTable extends Migration
         Schema::create('expenses', function (Blueprint $table) {
             $table->increments('id');
             $table->text('description');
-            $table->int('quantity');
-            $table->int('sft_rft');
-            $table->int('price_cost');
-            $table->int('total_amount');
+            $table->integer('quantity');
+            $table->integer('sft_rft');
+            $table->integer('price_cost');
+            $table->integer('total_amount');
             $table->string('account_head_name');
             $table->string('debit');
             $table->string('credit');

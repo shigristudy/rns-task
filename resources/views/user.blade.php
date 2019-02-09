@@ -18,26 +18,33 @@ User Profile
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Name</label>
-                                        <input type="text" name="name" class="form-control">
+                                        <input type="text" name="name" class="form-control" value="{{$user->name}}">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Email address</label>
-                                        <input type="email" name="email" class="form-control">
+                                        <input type="email" name="email" class="form-control" value="{{$user->email}}">
                                     </div>
                                 </div>
-                            
                             </div>
                             
+                            <div class="row">
+                                <div class="col-md-12">
+                                     <div class="form-group">
+                                        <label class="bmd-label-floating">Designation</label>
+                                        <input type="text" name="designation" class="form-control" value="{{$user->designation}}">
+                                    </div>
+                                </div>
+                            </div>
                             
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>About Me</label>
                                         <div class="form-group">
-                                            <label class="bmd-label-floating"> Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</label>
-                                            <textarea name="about" class="form-control" rows="5"></textarea>
+                                            <label class="bmd-label-floating">Few Lines About you</label>
+                                            <textarea name="about" class="form-control" rows="5">{{$user->about}}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -50,22 +57,24 @@ User Profile
                 </div>
             </div>
             <div class="col-md-4">
+            
                 <div class="card card-profile">
                     <div class="card-avatar">
                         <a href="#pablo">
-                            <img class="img" src="{{ asset('img/faces/marc.jpg') }}" />
+                            <img class="img" src="{{ asset('img/profiles/'.$user->avatar) }}" />
                         </a>
                     </div>
                     <div class="card-body">
-                        <h6 class="card-category text-gray">CEO / Co-Founder</h6>
+                        <h6 class="card-category text-gray">{{$user->designation}}</h6>
                         <h4 class="card-title">{{$user->name}}</h4>
                         <p class="card-description">
-                            {{$user->email}}
+                            {{$user->about}}
                         </p>
-                        
+                        <a href="#pablo" class="btn btn-primary btn-round">View</a>
                     </div>
                 </div>
             </div>
+            
         </div>
     </div>
 @endsection
@@ -89,10 +98,34 @@ User Profile
             contentType: false,
             type: 'POST',
             success: function (data) {
-                console.log(data);
+                if(data.success==1){   
+                    $.notify({
+                      icon: "add_alert",
+                      message: "Profile Updated Successfully!..."
+
+                    }, {
+                      type: 'success',
+                      timer: 3000,
+                      placement: {
+                        from: 'top',
+                        align: 'right'
+                      }
+                    });
+                }
             },
             error: function () {
+                $.notify({
+                  icon: "add_alert",
+                  message: "Something Wrong Please Check Information."
 
+                }, {
+                  type: 'danger',
+                  timer: 3000,
+                  placement: {
+                    from: 'top',
+                    align: 'right'
+                  }
+                });
             }
         });
    });

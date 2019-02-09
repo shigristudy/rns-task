@@ -20,4 +20,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('profile', 'PagesController@profile')->name('profile');
 Route::get('allusers', 'PagesController@allusers')->name('allusers');
+Route::get('user/{user_id}', 'PagesController@singleUser')->name('user');
 Route::post('editprofile', 'PagesController@editprofile')->name('editprofile');
+Route::post('submitComment', 'PagesController@submitComment')->name('submitComment');
+Route::post('replysubmitComment', 'PagesController@replysubmitComment')->name('replysubmitComment');
