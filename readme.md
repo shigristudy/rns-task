@@ -3,7 +3,8 @@
 
 <p>Clone the project</p>
 <p>Update Composer</p>
-<p>Create .env</p>
+<p>Create Database</p>
+<p>Update .env</p>
 <p>Migrate Database (php artisan migrate)</p>
 <p>Registration</p>
 <p>Login</p>
