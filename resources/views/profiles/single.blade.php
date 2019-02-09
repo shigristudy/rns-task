@@ -39,8 +39,8 @@ User | {{$user->name}}
                 </div>
                 <div class="col-md-8">
                     <div class="form-group">
-                        <div class="form-group">
-                            <p style="background-color: #eeeeee;padding:10px;">{{$comment->comment_body}}</p>
+                        <div class="form-group" style="background-color: #eeeeee;padding:10px;">
+                            <p>{{$comment->comment_body}}</p>
                         </div>
                     </div>
                 </div>
