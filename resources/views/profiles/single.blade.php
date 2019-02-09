@@ -52,25 +52,27 @@ User | {{$user->name}}
                     </div>
                 </div>
             </div>
-
-            @foreach($comment->replies as $row)
-            <div class="row">
-                <div class="col-md-2">
-                    
-                </div>
-                <div class="col-md-2">
-                    <div class="form-group text-center">
-                         <img style="width: 50px;height: 50px; border-radius: 50%;" class="img" src="{{ asset('img/profiles/'.$row->user->avatar) }}" />
+            
+            <div class="repliesofcomments_{{$comment->id}}">
+                @foreach($comment->replies as $row)
+                <div class="row">
+                    <div class="col-md-2">
+                        
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group text-center">
+                             <img style="width: 50px;height: 50px; border-radius: 50%;" class="img" src="{{ asset('img/profiles/'.$row->user->avatar) }}" />
+                        </div>
+                    </div>
+                    <div class="col-md-8 ">
+                        <div class="form-group" style="margin-bottom: 5%; margin-right:5%;background-color: #eeeeee !important; padding: 10px;">
+                            <p style="margin: 0px !important;">{{$row->replybody}}</p>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-8 ">
-                    <div class="form-group" style="margin-bottom: 5%; margin-right:5%;background-color: #eeeeee !important; padding: 10px;">
-                        <p style="margin: 0px !important;">{{$row->replybody}}</p>
-                    </div>
-                </div>
-            </div>
-           
-            @endforeach
+               
+                @endforeach
+            </div>    
             
             <form id="replyFormdata_{{$comment->id}}">
                 @csrf
@@ -171,6 +173,7 @@ User | {{$user->name}}
                       }
                     });
                     $('.allComments').append(html+reply);
+                    $('#commentForm')[0].reset();
                     // $('.allComments').append(reply);
                 }
             },
@@ -190,6 +193,10 @@ User | {{$user->name}}
             contentType: false,
             type: 'POST',
             success: function (data) {
+                var html = '';
+                html = '<div class="row"><div class="col-md-2"></div><div class="col-md-2"><div class="form-group text-center"><img style="width: 50px;height: 50px; border-radius: 50%;" class="img" src="{{ asset('img/profiles/'.auth()->user()->avatar) }}" /></div></div><div class="col-md-8 "><div class="form-group" style="margin-bottom: 5%; margin-right:5%;background-color: #eeeeee !important; padding: 10px;"><p style="margin: 0px !important;">'+data.body+'</p></div></div></div>';
+
+
                 if(data.success==1){   
                     $.notify({
                       icon: "add_alert",
@@ -203,6 +210,8 @@ User | {{$user->name}}
                         align: 'right'
                       }
                     });
+                    $('.repliesofcomments_'+comment_id).append(html);
+                    $('#replyFormdata_'+comment_id)[0].reset();
                 }
             },
             error: function () {
