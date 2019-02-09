@@ -28,7 +28,7 @@ User | {{$user->name}}
                 </div>
             </div>
         </div>
-        <div class="">
+        <div class="allComments">
             @forelse($comments as $comment)
             <div class="card">
             <div class="row">
@@ -139,11 +139,7 @@ User | {{$user->name}}
 @section('custom-scripts')
 <script type="text/javascript">
 
-    $('.replyButton').click(function(){
-        var id = $(this).attr('data-id');
-        $('.replybox_'+id).fadeIn();
-    });
-
+    
     $(document).on('submit','#commentForm',function(event){
         event.preventDefault();
         var form = $('#commentForm')[0];
@@ -155,10 +151,16 @@ User | {{$user->name}}
             contentType: false,
             type: 'POST',
             success: function (data) {
+                var html = '';
+                var reply = '';
+                 html = '<div class="card"><div class="row"><div class="col-md-2"><div class="form-group text-center"><img style="width: 50px;height: 50px; border-radius: 50%;" class="img" src="{{ asset('img/profiles/'.auth()->user()->avatar) }}" /></div></div><div class="col-md-8"><div class="form-group"><p>'+data.comment+'</p></div></div><div class="col-md-2"><div class="form-group"><div class="form-group"><i class="material-icons replyButton" data-id="'+data.comment_id+'">reply</i></div></div></div></div>';
+
+                 reply ='<form id="replyFormdata_'+data.comment_id+'">@csrf<input type="hidden" name="comment_id" value="'+data.comment_id+'"><div class="row replybox_'+data.comment_id+'" style="display: none;"><div class="col-md-2"><div class="form-group text-center"><img style="width: 50px;height: 50px; border-radius: 50%;" class="img" src="{{ asset('img/profiles/'.auth()->user()->avatar) }}" /></div></div><div class="col-md-8"><div class="form-group"><div class="form-group"><label class="bmd-label-floating">Your Reply Here....</label><textarea name="replybody" class="form-control" rows="2"></textarea></div></div></div><div class="col-md-2"><div class="form-group"><div class="form-group"><button type="submit" class="btn btn-primary" onclick="replyformdata('+data.comment_id+')">Reply</button></div></div></div></div></form></div>';
+                 
                 if(data.success==1){   
                     $.notify({
                       icon: "add_alert",
-                      message: "Comment Added Successfully Refresh to see :P"
+                      message: "Comment Added Successfully"
 
                     }, {
                       type: 'success',
@@ -168,6 +170,8 @@ User | {{$user->name}}
                         align: 'right'
                       }
                     });
+                    $('.allComments').append(html+reply);
+                    // $('.allComments').append(reply);
                 }
             },
             error: function () {
@@ -189,7 +193,7 @@ User | {{$user->name}}
                 if(data.success==1){   
                     $.notify({
                       icon: "add_alert",
-                      message: "Reply Added Successfully Refresh to see :P"
+                      message: "Reply Added Successfully"
 
                     }, {
                       type: 'success',
@@ -206,6 +210,12 @@ User | {{$user->name}}
         });
     }
 
-    
+    $(document).on('click','.replyButton',function(){
+        var id = $(this).attr('data-id');
+        $('.replybox_'+id).fadeIn();
+    });
+
+   
+
 </script>
 @endsection

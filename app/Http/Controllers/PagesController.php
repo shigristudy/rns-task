@@ -64,7 +64,7 @@ class PagesController extends Controller
         $comment->save();
 
         if($comment){
-            return response()->json(["success"=>1]);
+            return response()->json(["success"=>1,'comment'=>$request->comment,'comment_id'=>$comment->id]);
         }else{
             return response()->json(["success"=>0]);
         }
