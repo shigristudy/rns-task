@@ -40,7 +40,7 @@ User | {{$user->name}}
                 <div class="col-md-8">
                     <div class="form-group">
                         <div class="form-group">
-                            <p>{{$comment->comment_body}}</p>
+                            <p style="background-color: #eeeeee;padding:10px;">{{$comment->comment_body}}</p>
                         </div>
                     </div>
                 </div>
